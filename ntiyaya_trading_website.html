@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ntiyaya Trading — Mechanical, Electrical, Construction & QS Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0F1D2E;
+    --navy-mid: #1A2B4A;
+    --navy-light: #243554;
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-pale: #F5E9C8;
+    --white: #FFFFFF;
+    --off-white: #F8F5EE;
+    --text-muted: #8A9BB0;
+    --border: rgba(201,168,76,0.2);
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 4rem; height: 72px;
+    background: rgba(15,29,46,0.96);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-emblem {
+    width: 42px; height: 42px; background: var(--gold);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .nav-emblem span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px; font-weight: 700; color: var(--navy); letter-spacing: 0.5px;
+  }
+  .nav-brand { display: flex; flex-direction: column; }
+  .nav-brand-main {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 600; color: var(--white);
+    letter-spacing: 3px; text-transform: uppercase;
+  }
+  .nav-brand-sub {
+    font-size: 10px; font-weight: 300; color: var(--gold);
+    letter-spacing: 3px; text-transform: uppercase;
+  }
+  .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 500; color: var(--text-muted);
+    text-decoration: none; letter-spacing: 2px; text-transform: uppercase;
+    transition: color 0.2s; position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--gold);
+    transform: scaleX(0); transition: transform 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-links a.active { color: var(--gold); }
+  .nav-links a.active::after { transform: scaleX(1); }
+  .nav-cta {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--navy) !important; background: var(--gold);
+    padding: 8px 20px; text-decoration: none; transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--gold-light) !important; }
+  .nav-cta::after { display: none !important; }
+
+  /* PAGES */
+  .page { display: none; min-height: 100vh; padding-top: 72px; }
+  .page.active { display: block; }
+
+  /* ===== HOME ===== */
+  .hero {
+    position: relative; min-height: calc(100vh - 72px);
+    display: flex; align-items: center; overflow: hidden;
+  }
+  .hero-bg { position: absolute; inset: 0; background: var(--navy); overflow: hidden; }
+  .hero-bg svg {
+    position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.07;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 1200px; margin: 0 auto; padding: 6rem 4rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  .hero-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; }
+  .hero-eyebrow-line { width: 40px; height: 1px; background: var(--gold); }
+  .hero-eyebrow span {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 500; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem); font-weight: 300;
+    line-height: 1.05; color: var(--white); margin-bottom: 1.5rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero-desc {
+    font-size: 15px; font-weight: 300; color: var(--text-muted);
+    line-height: 1.8; margin-bottom: 2.5rem; max-width: 440px;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+    background: var(--gold); color: var(--navy);
+    padding: 14px 32px; border: none; cursor: pointer;
+    text-decoration: none; transition: background 0.2s; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); }
+  .btn-outline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+    background: transparent; color: var(--white);
+    padding: 13px 32px; border: 1px solid rgba(255,255,255,0.25);
+    cursor: pointer; text-decoration: none;
+    transition: border-color 0.2s, color 0.2s; display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-right { display: flex; flex-direction: column; gap: 1.5rem; }
+  .stat-card {
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+    padding: 1.5rem 2rem; display: flex; align-items: center; gap: 1.5rem;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .stat-card:hover { border-color: rgba(201,168,76,0.4); background: rgba(201,168,76,0.04); }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.6rem; font-weight: 300; color: var(--gold);
+    line-height: 1; min-width: 72px;
+  }
+  .stat-label { font-size: 13px; font-weight: 300; color: var(--text-muted); line-height: 1.5; }
+  .stat-label strong { display: block; font-weight: 500; color: var(--white); font-size: 15px; margin-bottom: 2px; }
+
+  .gold-divider {
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 50%, transparent 100%);
+  }
+
+  /* Services strip on home */
+  .home-services { background: var(--navy-mid); padding: 5rem 4rem; }
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 600; letter-spacing: 5px;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3vw, 3rem); font-weight: 300; color: var(--white);
+    margin-bottom: 3rem; line-height: 1.2;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--border); max-width: 1200px; margin: 0 auto;
+  }
+  .service-item {
+    background: var(--navy-mid); padding: 2.5rem 1.75rem;
+    position: relative; overflow: hidden; transition: background 0.3s; cursor: pointer;
+  }
+  .service-item:hover { background: var(--navy-light); }
+  .service-item::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 0; background: var(--gold); transition: height 0.3s;
+  }
+  .service-item:hover::before { height: 100%; }
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem; font-weight: 300; color: rgba(201,168,76,0.15);
+    line-height: 1; margin-bottom: 1rem;
+  }
+  .service-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 600; letter-spacing: 1px;
+    color: var(--white); margin-bottom: 0.75rem; text-transform: uppercase;
+  }
+  .service-desc { font-size: 13px; font-weight: 300; color: var(--text-muted); line-height: 1.7; }
+
+  /* ===== ABOUT ===== */
+  .about-hero {
+    background: var(--navy-mid); padding: 5rem 4rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .about-hero::after {
+    content: 'ABOUT'; position: absolute; right: 3rem; top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12rem; font-weight: 700; opacity: 0.03;
+    color: var(--gold); pointer-events: none; line-height: 1;
+  }
+  .about-grid {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+  }
+  .about-text p {
+    font-size: 15px; font-weight: 300; color: var(--text-muted);
+    line-height: 1.9; margin-bottom: 1.25rem;
+  }
+  .about-text p strong { color: var(--white); font-weight: 500; }
+  .about-profile {
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 2.5rem;
+  }
+  .profile-avatar {
+    width: 80px; height: 80px; border-radius: 50%; background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 600; color: var(--navy); margin-bottom: 1.5rem;
+  }
+  .profile-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 400; color: var(--white); margin-bottom: 0.25rem;
+  }
+  .profile-role {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 500; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem;
+  }
+  .profile-quals { list-style: none; border-top: 1px solid var(--border); padding-top: 1.5rem; }
+  .profile-quals li {
+    font-size: 13px; font-weight: 300; color: var(--text-muted);
+    padding: 0.6rem 0; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .profile-quals li::before { content: ''; width: 6px; height: 6px; background: var(--gold); flex-shrink: 0; }
+
+  .values-section { padding: 5rem 4rem; max-width: 1200px; margin: 0 auto; }
+  .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .value-card { border-top: 2px solid var(--gold); padding: 1.5rem 0; }
+  .value-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--white); margin-bottom: 0.75rem;
+  }
+  .value-desc { font-size: 13px; font-weight: 300; color: var(--text-muted); line-height: 1.7; }
+
+  /* ===== SERVICES ===== */
+  .services-hero {
+    background: var(--navy-mid); padding: 5rem 4rem 4rem;
+    position: relative; overflow: hidden; text-align: center;
+  }
+  .services-hero::after {
+    content: 'SERVICES'; position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10rem; font-weight: 700; opacity: 0.03;
+    color: var(--gold); pointer-events: none; white-space: nowrap;
+  }
+  .services-full { padding: 5rem 4rem; max-width: 1200px; margin: 0 auto; }
+  .service-row {
+    display: grid; grid-template-columns: 1fr 2fr; gap: 4rem;
+    padding: 4rem 0; border-bottom: 1px solid var(--border); align-items: start;
+  }
+  .service-row:last-child { border-bottom: none; }
+  .service-row-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem; font-weight: 300; color: var(--gold); opacity: 0.4; line-height: 1;
+  }
+  .service-row-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem; font-weight: 400; color: var(--white);
+    margin-bottom: 1rem; line-height: 1.2;
+  }
+  .service-row-desc {
+    font-size: 14px; font-weight: 300; color: var(--text-muted);
+    line-height: 1.9; margin-bottom: 1.5rem;
+  }
+  .service-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--gold); border: 1px solid rgba(201,168,76,0.3); padding: 5px 12px;
+  }
+
+  /* ===== CONTACT ===== */
+  .contact-hero {
+    background: var(--navy-mid); padding: 5rem 4rem 4rem;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .contact-hero::after {
+    content: 'CONTACT'; position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 9rem; font-weight: 700; opacity: 0.03;
+    color: var(--gold); pointer-events: none; white-space: nowrap;
+  }
+  .contact-grid {
+    max-width: 1200px; margin: 0 auto; padding: 5rem 4rem;
+    display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start;
+  }
+  .contact-info-item { display: flex; gap: 1rem; margin-bottom: 2rem; align-items: flex-start; }
+  .contact-icon {
+    width: 40px; height: 40px; background: rgba(201,168,76,0.1);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .contact-icon svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+  .contact-info-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 500; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 4px;
+  }
+  .contact-info-value { font-size: 15px; font-weight: 300; color: var(--white); }
+  .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 500; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--text-muted);
+  }
+  .form-input, .form-select, .form-textarea {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+    color: var(--white); font-family: 'Barlow', sans-serif;
+    font-size: 14px; font-weight: 300; padding: 12px 16px;
+    outline: none; transition: border-color 0.2s; width: 100%;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--gold); }
+  .form-select option { background: var(--navy-mid); }
+  .form-textarea { resize: vertical; min-height: 120px; }
+
+  /* FOOTER */
+  footer {
+    background: #070F18; border-top: 1px solid var(--border);
+    padding: 3rem 4rem; display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 300; color: var(--text-muted); }
+  .footer-brand strong { color: var(--gold); font-weight: 600; }
+  .footer-copy { font-size: 12px; font-weight: 300; color: var(--text-muted); }
+  .footer-tagline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 500; letter-spacing: 3px;
+    text-transform: uppercase; color: rgba(201,168,76,0.5);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .page.active .hero-eyebrow { animation: fadeUp 0.6s ease both; }
+  .page.active .hero h1 { animation: fadeUp 0.6s 0.1s ease both; }
+  .page.active .hero-desc { animation: fadeUp 0.6s 0.2s ease both; }
+  .page.active .hero-actions { animation: fadeUp 0.6s 0.3s ease both; }
+  .page.active .hero-right { animation: fadeUp 0.6s 0.2s ease both; }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { gap: 1.2rem; }
+    .hero-content, .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .values-grid { grid-template-columns: 1fr 1fr; }
+    .home-services, .services-full, .about-hero, .services-hero, .contact-hero, .contact-grid, .values-section { padding: 3rem 1.5rem; }
+    .hero-content { padding: 3rem 1.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .service-row { grid-template-columns: 1fr; gap: 1rem; }
+    .service-row-num { font-size: 3rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+    .about-hero::after, .services-hero::after, .contact-hero::after { font-size: 5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo" onclick="showPage('home'); return false;">
+    <div class="nav-emblem"><span>NT</span></div>
+    <div class="nav-brand">
+      <span class="nav-brand-main">Ntiyaya Trading</span>
+      <span class="nav-brand-sub">South Africa</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#" id="nav-home" class="active" onclick="showPage('home'); return false;">Home</a></li>
+    <li><a href="#" id="nav-about" onclick="showPage('about'); return false;">About</a></li>
+    <li><a href="#" id="nav-services" onclick="showPage('services'); return false;">Services</a></li>
+    <li><a href="#" id="nav-contact" class="nav-cta" onclick="showPage('contact'); return false;">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- ===== HOME ===== -->
+<div id="page-home" class="page active">
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-grid"></div>
+      <svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <!-- Crane -->
+        <rect x="700" y="100" width="12" height="500" fill="white"/>
+        <rect x="560" y="108" width="280" height="10" fill="white"/>
+        <rect x="712" y="108" width="100" height="8" fill="white"/>
+        <line x1="700" y1="110" x2="570" y2="115" stroke="white" stroke-width="3"/>
+        <line x1="712" y1="110" x2="800" y2="115" stroke="white" stroke-width="3"/>
+        <line x1="640" y1="118" x2="640" y2="200" stroke="white" stroke-width="3"/>
+        <!-- Gear / mechanical symbol -->
+        <circle cx="150" cy="200" r="60" fill="none" stroke="white" stroke-width="3"/>
+        <circle cx="150" cy="200" r="30" fill="none" stroke="white" stroke-width="2"/>
+        <line x1="150" y1="130" x2="150" y2="270" stroke="white" stroke-width="3"/>
+        <line x1="80" y1="200" x2="220" y2="200" stroke="white" stroke-width="3"/>
+        <line x1="105" y1="150" x2="195" y2="250" stroke="white" stroke-width="2"/>
+        <line x1="195" y1="150" x2="105" y2="250" stroke="white" stroke-width="2"/>
+        <!-- Lightning bolt / electrical -->
+        <polyline points="1050,150 1020,220 1045,220 1010,310" fill="none" stroke="white" stroke-width="4" stroke-linejoin="round"/>
+        <!-- Building -->
+        <rect x="800" y="280" width="160" height="320" fill="none" stroke="white" stroke-width="2"/>
+        <rect x="820" y="300" width="28" height="20" fill="white" opacity="0.25"/>
+        <rect x="858" y="300" width="28" height="20" fill="white" opacity="0.25"/>
+        <rect x="896" y="300" width="28" height="20" fill="white" opacity="0.25"/>
+        <rect x="820" y="340" width="28" height="20" fill="white" opacity="0.25"/>
+        <rect x="858" y="340" width="28" height="20" fill="white" opacity="0.25"/>
+        <rect x="896" y="340" width="28" height="20" fill="white" opacity="0.25"/>
+        <rect x="820" y="380" width="28" height="20" fill="white" opacity="0.25"/>
+        <rect x="858" y="380" width="28" height="20" fill="white" opacity="0.25"/>
+        <rect x="896" y="380" width="28" height="20" fill="white" opacity="0.25"/>
+      </svg>
+    </div>
+    <div class="hero-content">
+      <div class="hero-left">
+        <div class="hero-eyebrow">
+          <div class="hero-eyebrow-line"></div>
+          <span>Multi-Disciplinary Engineering — South Africa</span>
+        </div>
+        <h1>Engineering <em>Excellence</em> Across Every Discipline</h1>
+        <p class="hero-desc">Ntiyaya Trading delivers integrated Mechanical, Electrical, Construction, Quantity Surveying, and Project Management services — built on expertise, driven by results.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn-primary" onclick="showPage('services'); return false;">Our Services</a>
+          <a href="#" class="btn-outline" onclick="showPage('contact'); return false;">Get a Quote</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="stat-card">
+          <div class="stat-num">ME</div>
+          <div class="stat-label"><strong>Mechanical &amp; Electrical</strong>Systems installation, maintenance &amp; engineering solutions</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">CM</div>
+          <div class="stat-label"><strong>Construction, QS &amp; Civil</strong>Full construction delivery, cost management &amp; civil works</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">PM</div>
+          <div class="stat-label"><strong>Project Management</strong>End-to-end project coordination, planning &amp; delivery</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <section class="home-services">
+    <div style="max-width:1200px; margin:0 auto 3rem;">
+      <div class="section-label">What We Do</div>
+      <div class="section-title">Core <em>Services</em></div>
+    </div>
+    <div class="services-grid">
+      <div class="service-item">
+        <div class="service-num">01</div>
+        <div class="service-title">Mechanical</div>
+        <div class="service-desc">HVAC, plumbing systems, mechanical plant installation and maintenance across commercial and industrial sectors.</div>
+      </div>
+      <div class="service-item">
+        <div class="service-num">02</div>
+        <div class="service-title">Electrical</div>
+        <div class="service-desc">Power distribution, lighting, instrumentation and electrical engineering for residential, commercial and industrial projects.</div>
+      </div>
+      <div class="service-item">
+        <div class="service-num">03</div>
+        <div class="service-title">Construction &amp; QS</div>
+        <div class="service-desc">Full construction management, cost planning, bills of quantities and contract administration from concept to handover.</div>
+      </div>
+      <div class="service-item">
+        <div class="service-num">04</div>
+        <div class="service-title">Project Management</div>
+        <div class="service-desc">Structured project governance, programme management, stakeholder coordination and risk management.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-brand"><strong>Ntiyaya Trading</strong> — South Africa</div>
+    <div class="footer-tagline">Engineered for Excellence.</div>
+    <div class="footer-copy">&copy; 2026 Ntiyaya Trading. All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- ===== ABOUT ===== -->
+<div id="page-about" class="page">
+  <section class="about-hero">
+    <div style="max-width:1200px; margin:0 auto;">
+      <div class="section-label" style="margin-bottom:0.5rem;">Who We Are</div>
+      <div class="section-title" style="margin-bottom:2.5rem;">About <em>Ntiyaya</em> Trading</div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>Ntiyaya Trading is a South African multi-disciplinary service company providing integrated solutions across mechanical engineering, electrical engineering, construction, quantity surveying and project management.</p>
+          <p>We are built on the belief that <strong>professional excellence</strong> and <strong>client-focused delivery</strong> are not mutually exclusive. Our team brings together qualified engineers, surveyors and project managers who work collaboratively to deliver measurable value on every project.</p>
+          <p>From small-scale installations to large infrastructure programmes, Ntiyaya Trading applies the same commitment to quality, safety and innovation. We pride ourselves on building lasting relationships with our clients through trust, transparency and consistent delivery.</p>
+        </div>
+        <div class="about-profile">
+          <div class="profile-avatar">SD</div>
+          <div class="profile-name">Sesethu Dyosi</div>
+          <div class="profile-role">Managing Director</div>
+          <ul class="profile-quals">
+            <li>Managing Director, Ntiyaya Trading</li>
+            <li>Mechanical &amp; Electrical Services</li>
+            <li>Construction &amp; Quantity Surveying</li>
+            <li>Project Management</li>
+            <li>Contact: 068 299 9288</li>
+            <li>sesethu@ntiyayatrading.co.za</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="values-section">
+    <div class="section-label">Our Foundation</div>
+    <div class="section-title">Core <em>Values</em></div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-title">Integrity</div>
+        <div class="value-desc">We operate with full transparency and honest professional conduct in every client relationship.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-title">Innovation</div>
+        <div class="value-desc">We embrace modern engineering practices and continuously seek better ways to solve complex challenges.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-title">Safety</div>
+        <div class="value-desc">The safety of our people, clients and communities is non-negotiable on every project we undertake.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-title">Delivery</div>
+        <div class="value-desc">We are committed to completing every project on time, within budget and to the agreed specification.</div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-brand"><strong>Ntiyaya Trading</strong> — South Africa</div>
+    <div class="footer-tagline">Engineered for Excellence.</div>
+    <div class="footer-copy">&copy; 2026 Ntiyaya Trading. All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- ===== SERVICES ===== -->
+<div id="page-services" class="page">
+  <section class="services-hero">
+    <div class="section-label">What We Offer</div>
+    <div class="section-title">Our <em>Services</em></div>
+    <p style="font-size:15px; font-weight:300; color:var(--text-muted); max-width:560px; margin:0 auto; line-height:1.8; position:relative; z-index:1;">Six integrated service disciplines delivered by qualified professionals across South Africa.</p>
+  </section>
+  <section class="services-full">
+    <div class="service-row">
+      <div><div class="service-row-num">01</div></div>
+      <div>
+        <div class="service-row-title">Mechanical Engineering Services</div>
+        <p class="service-row-desc">Our mechanical team delivers comprehensive HVAC, plumbing, fire protection, and mechanical plant services across residential, commercial and industrial projects. We handle design, installation, commissioning and ongoing maintenance to ensure optimal system performance.</p>
+        <div class="service-tags">
+          <span class="tag">HVAC Systems</span>
+          <span class="tag">Plumbing &amp; Pipework</span>
+          <span class="tag">Fire Protection</span>
+          <span class="tag">Mechanical Plant</span>
+          <span class="tag">Commissioning</span>
+          <span class="tag">Maintenance</span>
+        </div>
+      </div>
+    </div>
+    <div class="service-row">
+      <div><div class="service-row-num">02</div></div>
+      <div>
+        <div class="service-row-title">Electrical Engineering Services</div>
+        <p class="service-row-desc">We provide end-to-end electrical solutions including power distribution, lighting design, instrumentation, and building management systems. Our electrically qualified team ensures safe, compliant and energy-efficient installations across all sectors.</p>
+        <div class="service-tags">
+          <span class="tag">Power Distribution</span>
+          <span class="tag">Lighting Design</span>
+          <span class="tag">Instrumentation</span>
+          <span class="tag">BMS Integration</span>
+          <span class="tag">Switchgear</span>
+          <span class="tag">Solar &amp; Renewables</span>
+        </div>
+      </div>
+    </div>
+    <div class="service-row">
+      <div><div class="service-row-num">03</div></div>
+      <div>
+        <div class="service-row-title">Construction Services</div>
+        <p class="service-row-desc">From groundworks to finishing, Ntiyaya Trading manages all phases of construction with a focus on quality, safety and programme compliance. We work across residential, commercial and infrastructure project types, delivering buildings that stand the test of time.</p>
+        <div class="service-tags">
+          <span class="tag">Residential Construction</span>
+          <span class="tag">Commercial Construction</span>
+          <span class="tag">Refurbishment</span>
+          <span class="tag">Site Management</span>
+          <span class="tag">Contractor Coordination</span>
+          <span class="tag">Quality Control</span>
+        </div>
+      </div>
+    </div>
+    <div class="service-row">
+      <div><div class="service-row-num">04</div></div>
+      <div>
+        <div class="service-row-title">Quantity Surveying</div>
+        <p class="service-row-desc">Accurate cost management is central to every successful project. Our QS services cover the full project lifecycle — from early-stage cost planning through to final account settlement — ensuring your project is delivered within budget and without financial surprises.</p>
+        <div class="service-tags">
+          <span class="tag">Cost Planning</span>
+          <span class="tag">Bills of Quantities</span>
+          <span class="tag">Tender Documentation</span>
+          <span class="tag">Contract Administration</span>
+          <span class="tag">Valuations</span>
+          <span class="tag">Final Account</span>
+        </div>
+      </div>
+    </div>
+    <div class="service-row">
+      <div><div class="service-row-num">05</div></div>
+      <div>
+        <div class="service-row-title">Project Management</div>
+        <p class="service-row-desc">We provide structured, professional project management services that keep complex multi-discipline projects on track. Our project managers integrate time, cost, quality and stakeholder management to ensure seamless delivery from inception through to close-out.</p>
+        <div class="service-tags">
+          <span class="tag">Programme Planning</span>
+          <span class="tag">Risk Management</span>
+          <span class="tag">Stakeholder Coordination</span>
+          <span class="tag">Reporting</span>
+          <span class="tag">Close-out &amp; Handover</span>
+          <span class="tag">Change Management</span>
+        </div>
+      </div>
+    </div>
+    <div class="service-row">
+      <div><div class="service-row-num">06</div></div>
+      <div>
+        <div class="service-row-title">Civil Engineering Services</div>
+        <p class="service-row-desc">Ntiyaya Trading delivers civil engineering solutions for both public and private sector clients. From road construction and stormwater drainage to earthworks and bulk infrastructure, our civil team brings technical skill and on-the-ground experience to every project, ensuring durable, compliant and cost-effective civil works.</p>
+        <div class="service-tags">
+          <span class="tag">Roads &amp; Paving</span>
+          <span class="tag">Stormwater &amp; Drainage</span>
+          <span class="tag">Earthworks</span>
+          <span class="tag">Bulk Infrastructure</span>
+          <span class="tag">Retaining Structures</span>
+          <span class="tag">Site Clearance</span>
+          <span class="tag">Municipal Services</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-brand"><strong>Ntiyaya Trading</strong> — South Africa</div>
+    <div class="footer-tagline">Engineered for Excellence.</div>
+    <div class="footer-copy">&copy; 2026 Ntiyaya Trading. All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- ===== CONTACT ===== -->
+<div id="page-contact" class="page">
+  <section class="contact-hero">
+    <div class="section-label">Get In Touch</div>
+    <div class="section-title" style="position:relative;z-index:1;">Contact <em>Us</em></div>
+    <p style="font-size:15px; font-weight:300; color:var(--text-muted); max-width:480px; margin:0 auto; line-height:1.8; position:relative; z-index:1;">Ready to discuss your project? Our team is here to help.</p>
+  </section>
+  <div class="contact-grid">
+    <div>
+      <div class="section-label" style="margin-bottom:1.5rem;">Direct Contact</div>
+      <div class="contact-info-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.18 1.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.09 6.09l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="contact-info-label">Phone</div>
+          <div class="contact-info-value">068 299 9288</div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22,6 12,13 2,6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="contact-info-label">Email</div>
+          <div class="contact-info-value">sesethu@ntiyayatrading.co.za</div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="7" r="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="contact-info-label">Managing Director</div>
+          <div class="contact-info-value">Sesethu Dyosi</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="section-label" style="margin-bottom:1.5rem;">Send a Message</div>
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-input" placeholder="Your first name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-input" placeholder="Your last name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Service Required</label>
+          <select class="form-select">
+            <option value="">Select a service...</option>
+            <option>Mechanical Engineering</option>
+            <option>Electrical Engineering</option>
+            <option>Construction Services</option>
+            <option>Quantity Surveying</option>
+            <option>Project Management</option>
+            <option>Civil Engineering</option>
+            <option>General Enquiry</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Tell us about your project..."></textarea>
+        </div>
+        <button class="btn-primary" style="align-self:flex-start;">Send Message</button>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-brand"><strong>Ntiyaya Trading</strong> — South Africa</div>
+    <div class="footer-tagline">Engineered for Excellence.</div>
+    <div class="footer-copy">&copy; 2026 Ntiyaya Trading. All rights reserved.</div>
+  </footer>
+</div>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  const navLink = document.getElementById('nav-' + id);
+  if (navLink) navLink.classList.add('active');
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>
